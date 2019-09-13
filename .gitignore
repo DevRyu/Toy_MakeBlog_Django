@@ -180,3 +180,5 @@ __init__.py
 cpython
 settings.cpython-37.pyc
 # End of https://www.gitignore.io/api/django,windows,visualstudiocode
+blogproject/__pycache__/settings.cpython-37.pyc
+*.pyc
