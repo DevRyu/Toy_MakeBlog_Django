@@ -21,4 +21,7 @@ urlpatterns = [
     path('', include('users.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     # 유저의 urls를 포함하는 프로젝트 url path
+    path('blog/', include('blog.urls')),
+    # 앱의 url을 가져옴
+
 ]

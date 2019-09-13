@@ -60,6 +60,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
+            # 템플릿 폴더를 인식할수 있도록 조인해줘야함
         ],
         'APP_DIRS': True,
         'OPTIONS': {
