@@ -1,0 +1,19 @@
+{% extends "blogs/_base.html" %}
+
+{% block title %}회원가입{% endblock %}
+{% block page %}signup{% endblock %}
+
+{% block content %}
+<div style="padding-left:50px; padding-top:50px;">
+    <h1>Signup</h1>
+    <hr>
+    <form action="" method="POST">
+      {{ user_form.as_p }}
+      <!-- 유저_폼은 views.py에서 렌더링한 정보//as_p의 의미는 p태그를 생성해서 감사 넣는다는 말이라고 이해하자 -->
+      <!-- form.as_table form.as_ul또한 같다 테이블이나 ul로 출력 -->
+      {% csrf_token %}
+      <input class="btn btn-primary" type="submit" value="submit">
+    </form>
+
+</div>
+{% endblock %}
