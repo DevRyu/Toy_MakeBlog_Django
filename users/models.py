@@ -1,18 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
+GENDER_CHOICES = (
+    (0, 'Male'),
+    (1, 'Female'),
+    (2, 'Not to disclose'),
+)
+
 
 class UserManager(BaseUserManager):
     # 베이스유저메니저 열어보면 크리에이트유저,슈퍼유저가 들어가 있음
     # 이메일을 받기 위해서
     # 아래는 이메일로 로그인하기 위해 유효성 검사를 만드는것
-    def _create_user(self, email, username, password, **extra_fields):
+    def _create_user(self, email, username, password, gender=2, **extra_fields):
         # 처음에 _(언더바를)붙이는 건 클래스 내에서만 쓰겟다는 목적인 것이다.
         if not email:
             raise ValueError('The given email must be set')
         email = self.normalize_email(email)
         username = self.model.normalize_username(username)
-        user = self.model(email=email, username=username, **extra_fields)
+        user = self.model(email=email, username=username,
+                          gender=gender, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -38,6 +45,7 @@ class User(AbstractUser):
     email = models.EmailField(verbose_name='email',
                               max_length=255, unique=True)  # 이메일은 유니크하게
     username = models.CharField(max_length=30)
+    gender = models.SmallIntegerField(choices=GENDER_CHOICES)
 
     objects = UserManager()  # 위의 클래스 받음
     USERNAME_FIELD = 'email'  # 유저네임을 이메일로 치환을
