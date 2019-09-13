@@ -15,9 +15,9 @@ def register(request):
             # 비밀번호를 셋하고
             user.save()
             # 비밀번호까지 완료시 save()호출해서  DB 저장
-            return render(request, 'registeration/' {'user': user})
+            return render(request, 'registeration/', {'user': user})
             # 렌더링해줌
         else:
             user_form = RegisterForm()
             # 유저 생성이 아니면 레지스터 폼만 보여주도록 한다.
-        return render(request, 'registeration/register.html' {'user_form': user_form})
+        return render(request, 'registeration/register.html', {'user_form': user_form})
