@@ -11,8 +11,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ta3i(_j7(d-jugn-r%(4u92qrzurwe!&6x98ou*#g$acbpm+cz'
 
+secret_file = os.path.join(BASE_DIR, 'secrets.json')
+# SECRET_KEY = 'ta3i(_j7(d-jugn-r%(4u92qrzurwe!&6x98ou*#g$acbpm+cz'
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets=secrets):
+    try:
+        print(secrets[setting])
+        # 시크릿  키를 가져오는 지 확인하는법
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
+SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
