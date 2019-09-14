@@ -20,25 +20,32 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <!-- <script type="text/javascript">
+    <!-- 제이쿼리 좋아요 버튼시 이벤트핸들러임 -->
+    <script type="text/javascript">
       $(document).ready(function(event) {
+        // 함수를 준비하는 레디함수
         $(document).on('click', '#unlike', function(event) {
           event.preventDefault();
+          // 클릭을 하면 동작을 함
           var pk = $(this).attr('value');
           $.ajax({
+            // 링크를 타고 넘어갈때 깜빡이지 않게(다시 랜더링 하지않게 비동기적으로 새롭게 가져옴)
             type: 'POST',
+            url: '{% url "post_like" %}',
             data: {'id':pk, 'csrfmiddlewaretoken': '{{ csrftoken }}' },
             dataType: 'json',
             success: function(response){
               $('#like_section').html(response['form'])
+              //성공시 폼을 라이크html 에응답
             },
             error: function(rs, e){
               console.log(rs.responseText);
+              //에러시 콘솔로그로 응답
             },
           });
         });
       });
-    </script> -->
+    </script>
   {% block head %}
   {% endblock %}
   </head>
