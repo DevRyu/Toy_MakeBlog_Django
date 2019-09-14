@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
 from blog.models import Post, Comment
+import json
 
 # 모델에서 포스트를 가져옴
 
@@ -27,11 +28,11 @@ def post_detail(request, post_id):
     # 포스트 라이크를 누르면 유저 아이디가 존재하는지 필터링하고 있으면 좋아요는 true가됨
     return render(request, 'blog/post_detail.html', context={'post': post, 'comments': comments, 'is_liked': is_liked, 'total_likes': post.total_likes()})
     # 리턴해줌
-# @login_required
-# @require_POST
+
+
+@login_required
+@require_POST
 # 인증된 유저만 좋아요를 누름
-
-
 def post_like(request):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
     # 장고모델 파라미터받고 객체가 존재하지 않으면 에러발생
@@ -46,6 +47,7 @@ def post_like(request):
     return HttpResponseRedirect(reverse('post_detail', kwargs={'post_id': post.id}))
 
 
+@login_required
 def post_write(request):
     errors = []
     if request.method == 'POST':
@@ -70,9 +72,23 @@ def post_write(request):
     return render(request, 'blog/post_write.html', {'user': request.user, 'errors': errors})
 
 
+@login_required
 def comment_write(request):
-    pass
+    errors = []
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id', '').strip()
+        content = request.POST.get('content', '').strip()
 
+        if not content:
+            errors.append('댓글을 입력해주세요.')
+
+        if not errors:
+            comment = Comment.objects.create(
+                user=request.user, post_id=post_id, content=content)
+
+            return redirect(reverse('post_detail', kwargs={'post_id': comment.post.id}))
+
+    return render(request, 'blogs/post_detail.html', {'user': request.user, 'errors': errors})
 
 # def like_toggle(request):
 #     pass
