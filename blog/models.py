@@ -1,7 +1,7 @@
 from django.db import models
 from helper.models import BaseModel
 from users.models import User
-# from taggit.managers import TaggableManager
+from taggit.managers import TaggableManager
 
 
 class Post(BaseModel):
@@ -15,7 +15,7 @@ class Post(BaseModel):
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     # 유저클래스와 이어서 여러유저가 여러라이크를 누르는데 토글로 막을거임
     # 어터케 M대M이쥬? M대1아닌가 각 유저들당 하나의 좋아요만 누르면되는거 아님?
-    # tags = TaggableManager()
+    tags = TaggableManager()
 
     def __str__(self):
         return '%s - %s' % (self.id, self.title)
