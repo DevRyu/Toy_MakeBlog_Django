@@ -88,7 +88,7 @@ def comment_write(request):
 
             return redirect(reverse('post_detail', kwargs={'post_id': comment.post.id}))
 
-    return render(request, 'blogs/post_detail.html', {'user': request.user, 'errors': errors})
+    return render(request, 'blog/post_detail.html', {'user': request.user, 'errors': errors})
 
 # def like_toggle(request):
 #     pass

@@ -12,6 +12,7 @@ class UserManager(BaseUserManager):
     # 베이스유저메니저 열어보면 크리에이트유저,슈퍼유저가 들어가 있음
     # 이메일을 받기 위해서
     # 아래는 이메일로 로그인하기 위해 유효성 검사를 만드는것
+    # 코드 중복 제거하기
     def _create_user(self, email, username, password, gender=2, **extra_fields):
         # 처음에 _(언더바를)붙이는 건 클래스 내에서만 쓰겟다는 목적인 것이다.
         if not email:
@@ -38,7 +39,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, 'blogs/like_section.html',  password, **extra_fields)
+        return self._create_user(email, 'blog/like_section.html',  password, **extra_fields)
 
 
 class User(AbstractUser):

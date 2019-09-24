@@ -143,5 +143,5 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = "users.User"
 
 # 로그인, 로그아웃 리다이렉트 변수는 성공시 돌아가는 화면임
-LOGIN_REDIRECT_URL = '/blogs/post'
-LOGOUT_REDIRECT_URL = '/blogs/post'
+LOGIN_REDIRECT_URL = '/blog/post'
+LOGOUT_REDIRECT_URL = '/blog/post'
