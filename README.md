@@ -1,5 +1,11 @@
 # Ryu's blogproject
 # using Django
 
-![Alt Text](https://media.giphy.com/media/RMwPg93YMthdPcUD8C/giphy.gif)
+회원가입    
+
+![Alt Text](https://media.giphy.com/media/igVEG6mMRv3FC6tNPe/giphy.gif)    
+
+글쓰기    
+https://media.giphy.com/media/gfqITGQn5nRu2fPAmh/giphy.gif
+
 
