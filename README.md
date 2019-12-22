@@ -1,5 +1,4 @@
-# Ryu's blogproject
-# using Django
+# Toy_MakeBlog_Django
 
 회원가입    
 
